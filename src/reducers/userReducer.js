@@ -1,4 +1,4 @@
-const userReducer = (state = { user: null, all_users: [] }, action) => {
+const userReducer = (state = { user: null }, action) => {
     switch(action.type){
         case 'LOGIN_USER':
             return{
@@ -9,11 +9,6 @@ const userReducer = (state = { user: null, all_users: [] }, action) => {
             return{
                 ...state,
                 user: null
-            }
-        case 'ALL_USERS':
-            return{
-                ...state,
-                all_users: action.all_users
             }
         default:
             return state
