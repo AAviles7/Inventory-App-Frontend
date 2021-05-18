@@ -1,4 +1,4 @@
-const restaurantReducer = (state = {restaurant: null, incoming_orders: [], received_orders: [], outgoing_orders: [], inventory: [], all_restaurants: [] }, action) => {
+const restaurantReducer = (state = {restaurant: null, incoming_orders: [], received_orders: [], outgoing_orders: [], inventory: [], all_restaurants: [], food_items: [] }, action) => {
     switch(action.type){
         case 'ALL_REST':
             return{
@@ -29,6 +29,11 @@ const restaurantReducer = (state = {restaurant: null, incoming_orders: [], recei
             return{
                 ...state,
                 inventory: action.inventory
+            }
+        case 'SET_FOOD':
+            return{
+                ...state,
+                food_items: action.food_items
             }
         default:
             return state

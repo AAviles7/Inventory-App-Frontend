@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { API_RESTAURANTS } from './constants'
 import Login from './containers/Login'
 import MainMenu from "./containers/MainMenu";
+import Inventory from "./containers/Inventory";
 
 const App = ({ user, set_all_restaurants }) => {
 
@@ -40,6 +41,14 @@ const App = ({ user, set_all_restaurants }) => {
           exact path="/mainmenu"
           render={(routeProps) => (
             <MainMenu {...routeProps} />
+          )}
+        />
+
+        {/* Inventory Path */}
+        <Route
+          exact path="/inventory"
+          render={(routeProps) => (
+            <Inventory {...routeProps} />
           )}
         />
 

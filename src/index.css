@@ -1,13 +1,42 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  max-height: 100vh;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+#mainMenuGrid {
+  max-height: inherit;
+}
+
+#mainGridRow {
+  height: auto;
+}
+
+#mainGridBar {
+  height: 70px;
+}
+
+#mainbuttons {
+  height: 40vh;
+}
+
+#buttoncontent {
+  height: auto;
+}
+
+#gridtopbar {
+  position: fixed;
+  top: 0px;
+  margin: 0px!important;
+}
+
+#inventoryGrid {
+  height: 90vh;
+  margin-top: 10px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+#gridFilterbar {
+  margin-top: 50px;
 }

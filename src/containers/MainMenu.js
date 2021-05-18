@@ -1,8 +1,9 @@
-import { Fragment, useEffect } from "react"
+import { useEffect } from "react"
 import { connect } from "react-redux"
-import { API_ORDERS } from '../constants'
+import { API_ORDERS, API_FOOD_ITEMS } from '../constants'
+import { Button, Divider, Grid, Icon } from 'semantic-ui-react'
 
-const MainMenu = ({ user, set_restaurant, set_incoming, set_received, set_outgoing, set_inventory, all_restaurants, restaurant }) => {
+const MainMenu = ({ user, set_restaurant, set_incoming, set_received, set_outgoing, set_inventory, all_restaurants, history, set_food }) => {
 
     useEffect(() => {        
         const fetchOrders = async () => {
@@ -32,19 +33,70 @@ const MainMenu = ({ user, set_restaurant, set_incoming, set_received, set_outgoi
             set_inventory(selectRestaurant.inventory_items)
         }
         fetchOrders()
-    }, [user, set_restaurant, set_incoming, set_received, set_outgoing, set_inventory, all_restaurants])
+
+        const fetchFood = async () =>{
+            const res = await fetch(API_FOOD_ITEMS)
+            const foodData = await res.json()
+            set_food(foodData)
+        }
+        fetchFood()
+    }, [user, set_restaurant, set_incoming, set_received, set_outgoing, set_inventory, all_restaurants, set_food])
 
     return(
-        <Fragment>
-
-        </Fragment>
+        <Grid columns={2} celled='internally' doubling id='mainMenuGrid'>
+            <Grid.Row id='mainGridBar' color='blue'>
+                {'Nav Bar'}
+            </Grid.Row>
+            <Grid.Row id='mainGridRow' color='grey'>
+                <Grid.Column>
+                    <Button fluid size='massive' color='blue' id='mainbuttons'>
+                        <Button.Content id='buttoncontent'>
+                            <Icon name='send' size='massive' id='buttonicon'/>
+                            <Divider hidden/>
+                            Send Order
+                        </Button.Content>
+                    </Button>
+                </Grid.Column>
+                <Grid.Column>
+                    <Button fluid size='massive' color='blue' id='mainbuttons'>
+                        <Button.Content id='buttoncontent'>
+                            <Icon name='paper plane outline' flipped='horizontally' size='massive' id='buttonicon'/>
+                            <Divider hidden/>
+                            Receive Order
+                        </Button.Content>
+                    </Button>
+                </Grid.Column>
+            </Grid.Row>
+            <Grid.Row id='mainGridRow' color='grey'>
+                <Grid.Column>
+                    <Button fluid size='massive' color='blue' id='mainbuttons'>
+                        <Button.Content id='buttoncontent'>
+                            <Icon name='edit outline' size='massive' id='buttonicon'/>
+                            <Divider hidden/>
+                            Create Order
+                        </Button.Content>
+                    </Button>
+                </Grid.Column>
+                <Grid.Column>
+                    <Button fluid size='massive' color='blue' id='mainbuttons' onClick={() => history.push('/inventory')}>
+                        <Button.Content id='buttoncontent'>
+                            <Icon name='table' size='massive' id='buttonicon'/>
+                            <Divider hidden/>
+                            Inventory
+                        </Button.Content>
+                    </Button>
+                </Grid.Column> 
+            </Grid.Row>
+            <Grid.Row id='mainGridBar' color='blue'>
+                {'Info Bar'}
+            </Grid.Row>
+        </Grid>
     )
 }
 
 const mapStateToProps = (state) => {
     return {
         user: state.user.user,
-        restaurant: state.restaurant.restaurant,
         all_restaurants: state.restaurant.all_restaurants
     }
 }
@@ -55,7 +107,8 @@ const mapDispatchToProps = (dispatch) => {
       set_incoming: (incoming_orders) => dispatch({ type: 'SET_INCOMING', incoming_orders}),
       set_received: (received_orders) => dispatch({ type: 'SET_RECEIVED', received_orders}),
       set_outgoing: (outgoing_orders) => dispatch({ type: 'SET_OUTGOING', outgoing_orders}),
-      set_inventory: (inventory) => dispatch({ type: 'SET_INVENTORY', inventory})
+      set_inventory: (inventory) => dispatch({ type: 'SET_INVENTORY', inventory}),
+      set_food: (food_items) => dispatch({ type: 'SET_FOOD', food_items})
     }
 }
 

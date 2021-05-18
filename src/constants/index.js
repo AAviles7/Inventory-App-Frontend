@@ -4,5 +4,6 @@ export const API_USERS = `${API_ROOT}/users/`
 export const API_RESTAURANTS = `${API_ROOT}/restaurants/`
 export const API_ORDERS = `${API_ROOT}/orders/`
 export const API_FOOD_ITEMS = `${API_ROOT}/food_items/`
+export const API_INVENTORY_ITEMS = `${API_ROOT}/inventory_items/`
 
 export const API_LOGIN = `${API_ROOT}/login/`
