@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import { Button, Grid, Header, Icon } from "semantic-ui-react"
 import { API_INVENTORY_ITEMS } from '../constants'
 
-const InventoryList = ({ food, inventory, restaurant }) => {
+const InventoryList = ({ food, inventory, add_item, subtract_item, restaurant }) => {
     const [count, setCount] = useState(0)
     const [itemExist, setExist] = useState(false)
     const [item, setItem] = useState(null)
@@ -50,6 +50,7 @@ const InventoryList = ({ food, inventory, restaurant }) => {
             const newData = await res.json()
             setCount(newData.quantity)
             setItem(newData)
+            add_item(newData)
             setExist(true)
         }
     }
@@ -107,4 +108,11 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(InventoryList)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        add_item: (food_item) => dispatch({ type: 'ADD_ITEM', food_item}),
+        subtract_item: (food_item) => dispatch({ type: 'SUBTRACT_ITEM', food_item})
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(InventoryList)

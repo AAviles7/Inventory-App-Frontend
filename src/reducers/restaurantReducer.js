@@ -1,4 +1,4 @@
-const restaurantReducer = (state = {restaurant: null, incoming_orders: [], received_orders: [], outgoing_orders: [], inventory: [], all_restaurants: [], food_items: [] }, action) => {
+const restaurantReducer = (state = {restaurant: null, incoming_orders: [], received_orders: [], outgoing_orders: [], inventory: [], all_restaurants: [], food_items: [], selected_order: null }, action) => {
     switch(action.type){
         case 'ALL_REST':
             return{
@@ -34,6 +34,26 @@ const restaurantReducer = (state = {restaurant: null, incoming_orders: [], recei
             return{
                 ...state,
                 food_items: action.food_items
+            }
+        case 'ADD_ITEM':
+            return{
+                ...state,
+                inventory: [...state.inventory, action.food_item]
+            }
+        case 'SUBTRACT_ITEM':
+            return{
+                ...state,
+                inventory: state.inventory.filter((item) => item !== action.food_item)
+            }
+        case 'UPDATE_ITEM_SUB':
+            return{
+                ...state,
+                
+            }
+        case 'SELECT_ORDER':
+            return{
+                ...state,
+                selected_order: action.selected_order
             }
         default:
             return state

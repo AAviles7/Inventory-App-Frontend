@@ -70,10 +70,10 @@ const MainMenu = ({ user, set_restaurant, set_incoming, set_received, set_outgoi
             <Grid.Row id='mainGridRow' color='grey'>
                 <Grid.Column>
                     <Button fluid size='massive' color='blue' id='mainbuttons'>
-                        <Button.Content id='buttoncontent'>
+                        <Button.Content id='buttoncontent' onClick={() => history.push('/orders')}>
                             <Icon name='edit outline' size='massive' id='buttonicon'/>
                             <Divider hidden/>
-                            Create Order
+                            Orders
                         </Button.Content>
                     </Button>
                 </Grid.Column>

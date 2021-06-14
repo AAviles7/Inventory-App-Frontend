@@ -6,8 +6,10 @@ import { API_RESTAURANTS } from './constants'
 import Login from './containers/Login'
 import MainMenu from "./containers/MainMenu";
 import Inventory from "./containers/Inventory";
+import OrderPage from "./containers/OrderPage";
+import OrderDetails from "./components/OrderDetails";
 
-const App = ({ user, set_all_restaurants }) => {
+const App = ({ user, set_all_restaurants, selected_order }) => {
 
   useEffect(()=>{
     const fetchRestaurants = async () => {
@@ -52,6 +54,22 @@ const App = ({ user, set_all_restaurants }) => {
           )}
         />
 
+        {/* Create Order Path */}
+        <Route
+          exact path="/orders"
+          render={(routeProps) => (
+            <OrderPage {...routeProps} />
+          )}
+        />
+        
+        {/* Create Order Path */}
+        <Route
+          exact path={`/orders/details_ordernum_${selected_order ? selected_order.id : 'none'}`}
+          render={(routeProps) => (
+            <OrderDetails {...routeProps} />
+          )}
+        />
+
       </Switch>
     </Router>
   )
@@ -59,7 +77,8 @@ const App = ({ user, set_all_restaurants }) => {
 
 const mapStateToProps = (state) => {
   return {
-      user: state.user.user
+      user: state.user.user,
+      selected_order: state.restaurant.selected_order
   }
 }
 

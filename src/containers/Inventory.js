@@ -1,15 +1,17 @@
 import { Fragment, useEffect, useState } from "react"
 import { connect } from "react-redux"
-import { Divider, Dropdown, Grid, Header, Search } from "semantic-ui-react"
+import { Dropdown, Grid, Header, Search, Button } from "semantic-ui-react"
 import InventoryList from '../components/InventoryList'
 
-const Inventory = ({ food_items }) => {
+const Inventory = ({ food_items, history }) => {
     const [sortedList, setSortedList] = useState(food_items)
     const [sort, setSort] = useState('')
     const [storeList, setStoreList] = useState([])
+    const [search, setSearch] = useState('')
 
     useEffect(() => {
-        setSortedList(food_items.filter((item) => item.store.includes(sort)))
+        const tempList = food_items.filter((item) => item.store.includes(sort))
+        setSortedList(tempList.filter((item) => item.name.includes(search)))
         const temp = []
         food_items.map((item) => {
             if(!temp.includes(item.store)){
@@ -30,7 +32,7 @@ const Inventory = ({ food_items }) => {
             })
         }
         setStoreList(stores)
-    }, [sort, food_items])
+    }, [sort, search, food_items])
 
     const handleSort = (value) => {
         switch(value){
@@ -90,11 +92,16 @@ const Inventory = ({ food_items }) => {
             </Grid>
             <Grid id='gridFilterbar'>
                 <Grid.Row stretched>
-                    <Grid.Column width={8}>
+                    <Grid.Column width={5}>
                         <Dropdown fluid selection options={storeList} placeholder='All' id='filterDropdown' onChange={(event) => handleSort(event.target.innerText)}/>
                     </Grid.Column>
-                    <Grid.Column width={8}>
-                        <Search fluid/>
+                    <Grid.Column width={6}>
+                        <Search showNoResults={false} onSearchChange={(event) => setSearch(event.target.value)} fluid/>
+                    </Grid.Column>
+                    <Grid.Column width={5}>
+                        <Button onClick={() => {
+                            history.push('/mainmenu')
+                        }} > Back </Button>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
